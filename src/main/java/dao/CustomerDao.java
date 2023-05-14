@@ -1,6 +1,7 @@
 package dao;
 
 import domain.Customer;
+import exception.CustomerAlreadyExistsException;
 import exception.CustomerNotFoundException;
 
 import java.sql.Connection;
@@ -19,10 +20,10 @@ public class CustomerDao {
     }
 
 
-    public void add(Customer customer) throws SQLException, CustomerNotFoundException  {
+    public void add(Customer customer) throws SQLException, CustomerAlreadyExistsException {
         String sql = "INSERT INTO CUSTOMERS (id_customer, dni, c_password, c_name, c_surname, wallet) VALUES (?, ?, ?, ?, ?, ?)";
         if (existCustomer(customer.getDni()))
-            throw new CustomerNotFoundException("This customer already exists");
+            throw new CustomerAlreadyExistsException("This customer already exists");
         //todo hacer autoincrementales
         //todo repasar la mecanica de los autoincrementales (que no le falte a ningun método)
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -52,8 +53,7 @@ public class CustomerDao {
 
     public boolean modify(String dni, Customer customer) throws SQLException {
         String sql = "UPDATE customers SET c_password = ?, c_name = ?, c_surname = ?, wallet = ? WHERE dni = ?";
-        /*Aqui al igual que en viajes solo modificamos parámetros no relevantes para la consistencia de datos
-        * Si se quiere modificar dni o id lo que hay que hacer es borrar el cliente e insertar otro*/
+        //todo hacer lo mismo que en los travels
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, autoincremental());
         statement.setString(2, customer.getDni());
@@ -116,8 +116,31 @@ public class CustomerDao {
 
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
         autoincremental = resultSet.getInt("autocount");
         return autoincremental++;
+    }
+    public  Optional<Customer> login(String username, String password) throws SQLException {
+        String sql = "SELECT * FROM customers WHERE dni = ? AND c_password = ?";
+        Customer user = null;
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, username);
+        statement.setString(2, password);
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            user = fromResultSet(resultSet);
+        }
+
+        return Optional.ofNullable(user);
+    }
+    public Customer fromResultSet(ResultSet resultSet) throws SQLException {
+        Customer user = new Customer();
+        user.setId(resultSet.getInt("id_customer"));
+        user.setName(resultSet.getString("c_name"));
+        user.setDni(resultSet.getString("dni"));
+
+        return user;
     }
 
 }

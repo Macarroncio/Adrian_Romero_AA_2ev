@@ -19,6 +19,7 @@ public class Database {
                 Class.forName(ORACLE_DRIVER);
                 connection = DriverManager.getConnection(ORACLE_URL, USERNAME, PASSWORD);
                 System.out.println("Connected!");
+                return connection;
             } catch (ClassNotFoundException cnfe) {
                 System.out.println("The connection driver could not be loaded. Verify that the drivers are available");
                 cnfe.printStackTrace();
@@ -26,8 +27,7 @@ public class Database {
                 System.out.println("Could not connect to the database server. Check that the data is correct ");
                 sqle.printStackTrace();
             }
-
-            return connection;
+            return null;
         }
 
         public void close() {

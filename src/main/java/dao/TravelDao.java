@@ -1,6 +1,7 @@
 package dao;
 
 import domain.Travel;
+import exception.TravelAlreadyExistsException;
 import exception.TravelNotFoundException;
 
 import java.sql.Connection;
@@ -19,10 +20,10 @@ public class TravelDao {
     }
 
 
-    public void add(Travel travel) throws SQLException, TravelNotFoundException {
+    public void add(Travel travel) throws SQLException, TravelAlreadyExistsException {
         String sql = "INSERT INTO travels (id_travel, destination, price) VALUES (?, ?, ?)";
         if (existTravel(travel.getDestination()))
-            throw new TravelNotFoundException("This travel already exists");
+            throw new TravelAlreadyExistsException("This travel already exists");
         //todo hacer autoincrementales
         //todo repasar la mecanica de los autoincrementales (que no le falte a ningun método)
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -48,21 +49,22 @@ public class TravelDao {
 
     }
 
-    public boolean modify(String destination, Travel travel) throws SQLException {
+    public boolean modify(String destination, Travel travel) throws SQLException, TravelAlreadyExistsException {
         /*Aqui solo vamos a modificar el precio, ya que modificar el id o el destino convertiría
         al viaje en otro diferente y daría muchos problemas de consistencia de datos. Si se quiere
         modificar cualquiera de los campos mencionados, lo correcto sería borrar el viaje y crear otro*/
+        if (existTravel(travel.getDestination()))
+            throw new TravelAlreadyExistsException("This travel already exists");
 
-        String sql = "UPDATE travel SET  price = ? WHERE destination = ?";
+        String sql = "UPDATE travels SET destination = ?,  price = ? WHERE destination = ?";
 
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, autoincremental());
-        statement.setString(2, travel.getDestination());
-        statement.setDouble(3, travel.getPrice());
+        statement.setString(1, travel.getDestination());
+        statement.setDouble(2, travel.getPrice());
+        statement.setString(3, destination);
 
         int rows = statement.executeUpdate();
         return rows == 1;
-
     }
 
     public ArrayList<Travel> showAll() throws SQLException {
@@ -109,7 +111,9 @@ public class TravelDao {
 
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
+        resultSet.next();
         autoincremental = resultSet.getInt("autocount");
+
         return autoincremental++;
     }
 

@@ -71,13 +71,13 @@ public class Customer {
     //todo retocar el tostring
     @Override
     public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", dni='" + dni + '\'' +
-                ", password='" + password + '\'' +
-                ", wallet=" + wallet +
-                '}';
+        return
+                "ID=" + id +
+                ", NAME='" + name + '\'' +
+                ", SURNAME='" + surname + '\'' +
+                ", DNI='" + dni + '\'' +
+                ", PASSWORD='" + password + '\'' +
+                ", WALLET=" + wallet
+                ;
     }
 }
