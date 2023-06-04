@@ -35,7 +35,7 @@ public class TravelDao {
 
     public boolean delete(String destination) {
         try {
-            String sql = "DELETE FROM travel WHERE destination = ?";
+            String sql = "DELETE FROM travels WHERE destination = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, destination);
             int rows = statement.executeUpdate();

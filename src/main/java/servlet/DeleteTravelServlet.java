@@ -18,7 +18,7 @@ import java.sql.Connection;
 @WebServlet("/delete-travel")
 public class DeleteTravelServlet extends HttpServlet {
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 

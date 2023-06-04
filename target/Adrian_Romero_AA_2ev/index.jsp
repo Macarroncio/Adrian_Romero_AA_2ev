@@ -33,30 +33,12 @@
             </div>
         </div>
     </nav>
-    <script type="text/javascript">
-                $(document).ready(function() {
-                    $("form").on("submit", function(event) {
-                        event.preventDefault();
-                        var formValue = $(this).serialize();
-                        $.post("delete-travel", formValue, function(data) {
-                            $("#result").html(data);
-                        });
-                    });
-                });
-        </script>
     <div class="container-fluid text-center">
         <div class="container">
             <div class="row justify-content-center mt-5">
                 <div class="col-md-6">
-                    <form class="d-flex">
-                        <select class="form-select me-2" name="param1">
-                            <option value="" selected>Precio</option>
-                            <option value="param1_value1">0-50</option>
-                            <option value="param1_value2">50-200</option>
-                            <option value="param1_value3">+200</option>
-                        </select>
-                        <input type="text" class="form-control me-2" placeholder="Identificador" name="searchQuery">
-                        <button class="btn btn-primary" type="submit">Search</button>
+                    <form class="d-flex" action="search-travel" method="POST">
+                        <input type="text" class="form-control me-2" placeholder="Destino" name="searchQuery"><button class="btn btn-primary">Search</button>
                     </form>
                 </div>
             </div>
@@ -75,10 +57,19 @@
                             <%
                                  if (currentUser == null || currentUser.getDni().equals("111111111")) {
                              %>
-                                 <form>
-                                   <input type="hidden" name="travelDestination" value="<%= travel.getDestination() %>">
-                                   <button type="submit" class="btn btn-primary">Borrar</button>
-                                 </form>
+
+
+                               <button type="submit" class="btn btn-outline-danger">
+                                                       <a href="delete-travel?travelDestination=<%= travel.getDestination() %>">
+                                                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                           class="bi bi-x-octagon-fill" viewBox="0 0 16 16">
+                                                           <path
+                                                               d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zm-6.106 4.5L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708z">
+                                                           </path>
+                                                       </svg>
+                                                       </a>
+                                                   </button>
+
                              <%
                                  }
                              %>

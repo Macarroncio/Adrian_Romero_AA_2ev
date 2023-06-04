@@ -17,6 +17,9 @@
         <div class="col-md-4">
           <a href="index.jsp" class="btn btn-danger">Borrar Usuario</a>
         </div>
+         <div class="col-md-4">
+          <a href="modifyCustomer.jsp" class="btn btn-danger">Modificar Usuario</a>
+        </div>
       </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/js/bootstrap.bundle.min.js" integrity="sha512-PJ9zdEanfLiqSU7p3qKjgvG1dJcFNUcbRn+QK1e9a9fyV7yTfHn1sGnb1sBfkv4KZ4sj4ELf+MHWOWaXfGbGxg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

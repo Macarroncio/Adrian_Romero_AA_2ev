@@ -1,5 +1,6 @@
 dao\PurchaseDao.class
 servlet\LogoutServlet.class
+servlet\ModifyCustomer.class
 exception\CustomerNotFoundException.class
 util\Constants.class
 servlet\RegisterCustomerServlet.class
@@ -11,6 +12,7 @@ servlet\ModifyTravel.class
 servlet\LoginServlet.class
 exception\TravelNotFoundException.class
 Main.class
+servlet\SearchTravelServlet.class
 servlet\AddTravel.class
 domain\Purchase.class
 dao\TravelDao.class

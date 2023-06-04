@@ -8,8 +8,10 @@ C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\domain\Travel.j
 C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\domain\Customer.java
 C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\servlet\DeleteTravelServlet.java
 C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\servlet\ModifyTravel.java
+C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\servlet\SearchTravelServlet.java
 C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\exception\TravelAlreadyExistsException.java
 C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\servlet\LogoutServlet.java
+C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\servlet\ModifyCustomer.java
 C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\dao\PurchaseDao.java
 C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\util\Constants.java
 C:\Users\Usuario\IdeaProjects\Adrian_Romero_AA_2ev\src\main\java\exception\CustomerAlreadyExistsException.java

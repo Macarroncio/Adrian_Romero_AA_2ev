@@ -52,15 +52,14 @@ public class CustomerDao {
     }
 
     public boolean modify(String dni, Customer customer) throws SQLException {
-        String sql = "UPDATE customers SET c_password = ?, c_name = ?, c_surname = ?, wallet = ? WHERE dni = ?";
+        String sql = "UPDATE customers SET dni = ?, c_password = ?, c_name = ?, c_surname = ? WHERE dni = ?";
         //todo hacer lo mismo que en los travels
         PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setInt(1, autoincremental());
-        statement.setString(2, customer.getDni());
-        statement.setString(3, customer.getPassword());
-        statement.setString(4, customer.getName());
-        statement.setString(5, customer.getSurname());
-        statement.setDouble(6, customer.getWallet());
+        statement.setString(1, customer.getDni());
+        statement.setString(2, customer.getPassword());
+        statement.setString(3, customer.getName());
+        statement.setString(4, customer.getSurname());
+        statement.setString(5, dni);
         int rows = statement.executeUpdate();
         return rows == 1;
     }
@@ -141,6 +140,22 @@ public class CustomerDao {
         user.setDni(resultSet.getString("dni"));
 
         return user;
+    }
+
+    public boolean addFunds (String dni, double fund) throws SQLException {
+        String sql = "UPDATE customers SET wallet = ? WHERE dni = ?";
+        //Here we add the fund to the existing wallet of the customer identified by its dni
+        CustomerDao customerDao = new CustomerDao(connection);
+        Optional<Customer> optionalCustomer = customerDao.findByDni(dni);
+        Customer customer = optionalCustomer.orElse(null);
+        Double finalFund = customer.getWallet() + fund;
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setDouble(1, finalFund);
+        statement.setString(2, dni);
+
+        int rows = statement.executeUpdate();
+        return rows == 1;
     }
 
 }

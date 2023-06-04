@@ -17,19 +17,17 @@ public class Main{
         Database db = new Database();
         connection = db.getConnection();
         CustomerDao customerDao = new CustomerDao(connection);
-        Customer customer = new Customer("name", "surname", "otrodni", "password", 666.66);
+        String dni = "73016529Q";
+        Customer customer = new Customer();
 
-        TravelDao travelDao = new TravelDao(connection);
-        Travel travel = new Travel("laprueba", 10.20);
-
-
+        customer.setDni("7777");
+        customer.setName("newName");
+        customer.setSurname("newSurname");
+        customer.setPassword("1234");
         try {
-            travelDao.modify("Acapulco Shore", travel);
-        } catch (SQLException sqle) {
-            sqle.printStackTrace();
-        } catch (TravelAlreadyExistsException caee) {
-            caee.printStackTrace();
+            customerDao.modify(dni, customer);
+        } catch (SQLException sqlException){
+            sqlException.printStackTrace();
         }
-
     }
 }
